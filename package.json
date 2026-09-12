@@ -1,0 +1,28 @@
+{
+  "name": "a3-david-peterson",
+  "version": "1.0.0",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template ===",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Doravid/a3-david-peterson.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Doravid/a3-david-peterson/issues"
+  },
+  "homepage": "https://github.com/Doravid/a3-david-peterson#readme",
+  "dependencies": {
+    "compression": "^1.8.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "helmet": "^8.3.0",
+    "mongodb": "^7.6.0",
+    "morgan": "^1.12.1"
+  }
+}
