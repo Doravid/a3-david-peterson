@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Marketplace for buying and selling custom mechanical keyboards.">
+  <title>Keyboard Marketplace</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    button, input[type="submit"] {
+      background-color: #004a99 !important;
+      border-color: #004a99 !important;
+      color: #ffffff !important;
+    }
+    button:hover, input[type="submit"]:hover {
+      background-color: #003366 !important;
+      border-color: #003366 !important;
+    }
+    button.secondary {
+      background-color: #4b5563 !important;
+      border-color: #4b5563 !important;
+      color: #ffffff !important;
+    }
+    button.secondary:hover {
+      background-color: #374151 !important;
+      border-color: #374151 !important;
+    }
+    button.danger {
+      background-color: #b91c1c !important;
+      border-color: #b91c1c !important;
+      color: #ffffff !important;
+    }
+    button.danger:hover {
+      background-color: #991b1b !important;
+      border-color: #991b1b !important;
+    }
+    button.success {
+      background-color: #15803d !important;
+      border-color: #15803d !important;
+      color: #ffffff !important;
+    }
+    button.success:hover {
+      background-color: #166534 !important;
+      border-color: #166534 !important;
+    }
+    article {
+      --block-spacing-vertical: 1rem;
+      --block-spacing-horizontal: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <nav>
+        <h1>Keyboard Marketplace</h1>
+          <form action="/logout" method="post"">
+            <button type="submit" class="danger">Log Out</button>
+          </form>
+    </nav>
+
+    <div class="grid">
+      <div>
+        <!-- The Post a Keyboard Form -->
+        <article>
+          <h2>Post a Keyboard</h2>
+          <form id="keyboardForm">
+            <input type="hidden" id="kbId">
+            <label for="kbName">Keyboard Name
+              <input type="text" id="kbName" required>
+            </label>
+            <label for="kbSize">Size (e.g. 60%, 100%)
+              <input type="text" id="kbSize" required>
+            </label>
+            <label for="kbPrice">Price ($)
+              <input type="number" id="kbPrice" step="0.01" required>
+            </label>
+
+            <fieldset>
+              <legend>Switch Type</legend>
+              <label for="swLinear">
+                <input type="radio" name="switches" id="swLinear" value="Linear" checked> Linear
+              </label>
+              <label for="swTactile">
+                <input type="radio" name="switches" id="swTactile" value="Tactile"> Tactile
+              </label>
+              <label for="swClicky">
+                <input type="radio" name="switches" id="swClicky" value="Clicky"> Clicky
+              </label>
+            </fieldset>
+
+            <label for="kbRgb">
+              <input type="checkbox" id="kbRgb"> Has RGB Lighting
+            </label>
+
+            <label for="kbDetails">Details
+              <textarea id="kbDetails" rows="2"></textarea>
+            </label>
+
+            <button type="submit" id="submitBtn">List Item</button>
+            <button type="button" class="secondary" id="cancelBtn" style="display: none;">Cancel Edit</button>
+          </form>
+        </article>
+      </div>
+
+      <div>
+        <h2>Available Keyboards</h2>
+        <div id="marketItems"></div>
+
+        <h2>Your Purchased Items</h2>
+        <div id="purchasedItems"></div>
+
+        <h2>Your Sold Items</h2>
+        <div id="soldItems"></div>
+      </div>
+    </div>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

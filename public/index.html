@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Storefront Setup</title>
+  <meta name="description" content="Log in to the custom keyboard marketplace to buy, sell, and build mechanical keyboards.">
+  <title>Keyboard Store Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    :root {
+      --primary: #004a99;
+      --primary-hover: #003366;
+    }
+  </style>
 </head>
 <body>
-  <h1>Core Server Running</h1>
-  <p>Check the console to verify database connectivity.</p>
+  <main class="container">
+    <h1>Keyboard Builder</h1>
+    <article >
+      <h2 style = "margin-bottom: 0rem; margin-top: -2rem;">Please log in to manage your custom keyboards.</h2>
+      <p style = "margin-bottom: 3.0rem;"><small><strong>New accounts will be created automatically.</strong></small></p>
+      <a href="/auth/github" role="button" class="contrast" style = "margin-bottom: -2.0rem;">Log in with GitHub</a>
+    </article>
+  </main>
 </body>
 </html>
