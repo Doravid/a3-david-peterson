@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Marketplace for buying and selling custom mechanical keyboards.">
   <title>Keyboard Marketplace</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"></noscript>
   <style>
     button, input[type="submit"] {
       background-color: #004a99 !important;
@@ -49,6 +49,9 @@
       --block-spacing-horizontal: 1rem;
     }
     /* Stop da thingys from moving around. */
+    main.container {
+      min-height: 100vh;
+    }
     #marketItems, #purchasedItems, #soldItems {
       min-height: 15vh;
     }
