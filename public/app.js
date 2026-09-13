@@ -59,9 +59,9 @@ function renderMarket(keyboards) {
           <h3 style="margin-bottom: 0;">${kb.name}</h3>
           <small>Seller: ${kb.sellerName}</small>
         </header>
-        <p style="margin-bottom: 0rem;"><strong>Size:</strong> ${
+        <p style="margin-bottom: 0;"><strong>Size:</strong> ${
           kb.size} | <strong>Price:</strong> $${kb.price}</p>
-        <p style="margin-bottom: 0rem;"><strong>Switches:</strong> ${
+        <p style="margin-bottom: 0;"><strong>Switches:</strong> ${
           kb.switches} | <strong>RGB:</strong> ${kb.rgb ? 'Yes' : 'No'}</p>
         <p><strong>Details:</strong> ${kb.details || 'None'}</p>
         <footer>${buttons}</footer>
@@ -76,11 +76,11 @@ function renderMarket(keyboards) {
 
         article.innerHTML = `
           <header>
-            <h3">${kb.name}</h3></br>
-            <small><strong >${roleText}</strong></small>
+            <h3 style="margin-bottom: 0;">${kb.name}</h3>
+            <small><strong>${roleText}</strong></small>
           </header>
-          <p"><strong>Size:</strong> ${kb.size} | <strong>Price:</strong> $${
-            kb.price}</p>
+          <p style="margin-bottom: 0;"><strong>Size:</strong> ${
+            kb.size} | <strong>Price:</strong> $${kb.price}</p>
           <p style="margin-bottom: 0;"><strong>Switches:</strong> ${
             kb.switches} | <strong>RGB:</strong> ${kb.rgb ? 'Yes' : 'No'}</p>
           <p style="margin-bottom: 0;"><strong>Details:</strong> ${
