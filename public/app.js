@@ -38,35 +38,63 @@ function renderMarket(keyboards) {
     const isOwner = kb.sellerId === currentUser.githubId;
 
     if (kb.status === 'available') {
-      let buttons = '';
+      const header = document.createElement('header');
+      const h3 = document.createElement('h3');
+      h3.style.marginBottom = '0';
+      h3.textContent = kb.name;
+      const small = document.createElement('small');
+      small.textContent = `Seller: ${kb.sellerName}`;
+      header.appendChild(h3);
+      header.appendChild(small);
+
+      const p1 = document.createElement('p');
+      p1.style.marginBottom = '0';
+      p1.textContent = `Size: ${kb.size} | Price: $${kb.price}`;
+
+      const p2 = document.createElement('p');
+      p2.style.marginBottom = '0';
+      p2.textContent =
+          `Switches: ${kb.switches} | RGB: ${kb.rgb ? 'Yes' : 'No'}`;
+
+      const p3 = document.createElement('p');
+      p3.textContent = `Details: ${kb.details || 'None'}`;
+
+      const footer = document.createElement('footer');
+
       if (isOwner) {
-        buttons = `
-          <div class="grid">
-            <button class="secondary" onclick="editKb('${kb._id}', '${
-            kb.name}', '${kb.size}', ${kb.price}, '${kb.switches}', ${
-            kb.rgb}, '${kb.details}')">Edit</button>
-            <button class="danger" onclick="deleteKb('${
-            kb._id}')">Remove</button>
-          </div>
-        `;
+        const div = document.createElement('div');
+        div.className = 'grid';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'secondary edit-btn';
+        editBtn.textContent = 'Edit';
+        editBtn.dataset.id = kb._id;
+        editBtn.dataset.name = kb.name;
+        editBtn.dataset.size = kb.size;
+        editBtn.dataset.price = kb.price;
+        editBtn.dataset.switches = kb.switches;
+        editBtn.dataset.rgb = kb.rgb;
+        editBtn.dataset.details = kb.details || '';
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'danger delete-btn';
+        delBtn.textContent = 'Remove';
+        delBtn.dataset.id = kb._id;
+
+        div.appendChild(editBtn);
+        div.appendChild(delBtn);
+        footer.appendChild(div);
       } else {
-        buttons =
-            `<button class="success" onclick="buyKb('${kb._id}')">Buy</button>`;
+        const buyBtn = document.createElement('button');
+        buyBtn.className = 'success buy-btn';
+        buyBtn.textContent = 'Buy';
+        buyBtn.dataset.id = kb._id;
+        footer.appendChild(buyBtn);
       }
 
-      article.innerHTML = `
-        <header>
-          <h3 style="margin-bottom: 0;">${kb.name}</h3>
-          <small>Seller: ${kb.sellerName}</small>
-        </header>
-        <p style="margin-bottom: 0;"><strong>Size:</strong> ${
-          kb.size} | <strong>Price:</strong> $${kb.price}</p>
-        <p style="margin-bottom: 0;"><strong>Switches:</strong> ${
-          kb.switches} | <strong>RGB:</strong> ${kb.rgb ? 'Yes' : 'No'}</p>
-        <p><strong>Details:</strong> ${kb.details || 'None'}</p>
-        <footer>${buttons}</footer>
-      `;
+      article.append(header, p1, p2, p3, footer);
       marketItems.appendChild(article);
+
     } else if (kb.status === 'sold') {
       const isBuyer = kb.buyerId === currentUser.githubId;
 
@@ -74,18 +102,32 @@ function renderMarket(keyboards) {
         const roleText = isOwner ? `Sold to: ${kb.buyerName}` :
                                    `Purchased from: ${kb.sellerName}`;
 
-        article.innerHTML = `
-          <header>
-            <h3 style="margin-bottom: 0;">${kb.name}</h3>
-            <small><strong>${roleText}</strong></small>
-          </header>
-          <p style="margin-bottom: 0;"><strong>Size:</strong> ${
-            kb.size} | <strong>Price:</strong> $${kb.price}</p>
-          <p style="margin-bottom: 0;"><strong>Switches:</strong> ${
-            kb.switches} | <strong>RGB:</strong> ${kb.rgb ? 'Yes' : 'No'}</p>
-          <p style="margin-bottom: 0;"><strong>Details:</strong> ${
-            kb.details || 'None'}</p>
-        `;
+        const header = document.createElement('header');
+        const h3 = document.createElement('h3');
+        h3.style.marginBottom = '0';
+        h3.textContent = kb.name;
+
+        const small = document.createElement('small');
+        const strong = document.createElement('strong');
+        strong.textContent = roleText;
+        small.appendChild(strong);
+        header.appendChild(h3);
+        header.appendChild(small);
+
+        const p1 = document.createElement('p');
+        p1.style.marginBottom = '0';
+        p1.textContent = `Size: ${kb.size} | Price: $${kb.price}`;
+
+        const p2 = document.createElement('p');
+        p2.style.marginBottom = '0';
+        p2.textContent =
+            `Switches: ${kb.switches} | RGB: ${kb.rgb ? 'Yes' : 'No'}`;
+
+        const p3 = document.createElement('p');
+        p3.style.marginBottom = '0';
+        p3.textContent = `Details: ${kb.details || 'None'}`;
+
+        article.append(header, p1, p2, p3);
 
         if (isOwner) {
           soldItems.appendChild(article);
@@ -122,30 +164,33 @@ form.addEventListener('submit', async (e) => {
   fetchKeyboards();
 });
 
-window.editKb = (id, name, size, price, switches, rgb, details) => {
-  document.getElementById('kbId').value = id;
-  document.getElementById('kbName').value = name;
-  document.getElementById('kbSize').value = size;
-  document.getElementById('kbPrice').value = price;
-  document.querySelector(`input[name="switches"][value="${switches}"]`)
-      .checked = true;
-  document.getElementById('kbRgb').checked = rgb;
-  document.getElementById('kbDetails').value =
-      details !== 'undefined' ? details : '';
+marketItems.addEventListener('click', async (e) => {
+  if (e.target.matches('.edit-btn')) {
+    document.getElementById('kbId').value = e.target.dataset.id;
+    document.getElementById('kbName').value = e.target.dataset.name;
+    document.getElementById('kbSize').value = e.target.dataset.size;
+    document.getElementById('kbPrice').value = e.target.dataset.price;
+    document
+        .querySelector(
+            `input[name="switches"][value="${e.target.dataset.switches}"]`)
+        .checked = true;
+    document.getElementById('kbRgb').checked = e.target.dataset.rgb === 'true';
+    document.getElementById('kbDetails').value = e.target.dataset.details;
 
-  submitBtn.textContent = 'Update Listing';
-  cancelBtn.style.display = 'block';
-};
+    submitBtn.textContent = 'Update Listing';
+    cancelBtn.style.display = 'block';
+  }
 
-window.deleteKb = async (id) => {
-  await fetch(`/api/keyboards/${id}`, {method: 'DELETE'});
-  fetchKeyboards();
-};
+  if (e.target.matches('.delete-btn')) {
+    await fetch(`/api/keyboards/${e.target.dataset.id}`, {method: 'DELETE'});
+    fetchKeyboards();
+  }
 
-window.buyKb = async (id) => {
-  await fetch(`/api/buy/${id}`, {method: 'POST'});
-  fetchKeyboards();
-};
+  if (e.target.matches('.buy-btn')) {
+    await fetch(`/api/buy/${e.target.dataset.id}`, {method: 'POST'});
+    fetchKeyboards();
+  }
+});
 
 cancelBtn.addEventListener('click', resetForm);
 
